@@ -9,26 +9,43 @@
    write your logic.
 */
 
-function handValue(hand) {
-  let total = 0
+// function handValue(hand) {
+//   let total = 0
+//
+//   for (let i = 0; i < hand.length; i++) {
+//     let card = hand[i];
+//     if (card === "K" || card === "Q" || card === "J") {
+//       total += 10;
+//     } else if (card === "A" && total >= 11) {
+//       total += 1;
+//     } else if (card === "A" && total <= 11) {
+//       total += 11;
+//     } else {
+//       total += Number(card);
+//     }
+//     if (hand.includes("A") && total > 21) {
+//       total -= 10;
+//     }
+//   }
+//   return total;
+// }
 
-  for (let i = 0; i < hand.length; i++) {
-    let card = hand[i];
-    if (card === "K" || card === "Q" || card === "J") {
-      total += 10;
-    } else if (card === "A" && total >= 11) {
-      total += 1;
-    } else if (card === "A" && total <= 11) {
-      total += 11;
-    } else {
-      total += Number(card);
+function handValue(hand) {
+  let total = 0;
+  let result = hand.reduce((card, val) => {
+    if (val === 'K' || val === 'Q' || val === 'J') {
+      return card + 10;
+    } else if (val === 'A') {
+      total++;
+      return card + 11;
     }
-    if (hand.includes("A") && total > 21) {
-      total -= 10;
-    }
+    return card + parseInt(val);
+  }, 0);
+  for (total; total > 0 && result > 21; total--) {
+    result -= 10;
   }
-  return total;
-}
+  return result;
+};
 
 /* -----  Hints ------
 
